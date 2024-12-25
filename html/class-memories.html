@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        // Redirect to login page if not logged in
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            alert("You must log in first!");
+            window.location.href = "index.html";
+        }
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Memories</title>
+    <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body class="class-memories-body">
+    <div class="overlay"></div>
+    <header>
+        <h1>Class Memories</h1>
+        <p>Relive the most unforgettable moments!</p>
+    </header>
+    <main>
+        <div id="gallery"></div>
+        <button id="upload-button" class="upload-btn">Upload a Memory</button>
+    </main>
+    <footer>
+        <button id="back-button" onclick="window.location.href='main.html'">Back to Main Page</button>
+    </footer>
+
+    <!-- Popup for uploading memory -->
+    <div id="upload-popup" class="popup hidden">
+        <div class="popup-content">
+            <h3>Upload a Memory</h3>
+            <input type="file" id="photo-input" accept="image/*">
+            <input type="text" id="caption-input" placeholder="Enter a caption">
+            <textarea id="details-input" placeholder="Write about this memory..."></textarea>
+            <div class="popup-buttons">
+                <button id="save-memory">Save</button>
+                <button id="cancel-upload">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/script.js"></script>
+
+</body>
+</html>
+

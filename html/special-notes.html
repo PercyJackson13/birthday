@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Redirect to login page if not logged in
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            alert("You must log in first!");
+            window.location.href = "index.html";
+        }
+    </script>
+    
+    <title>Special Notes</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #ff69b4;
+        }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .back-button:hover {
+            background-color: #ff1493;
+        }
+        .note-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .note-text {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .reply-box {
+            margin-top: 10px;
+        }
+        .reply-box textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .reply-box button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .reply-box button:hover {
+            background-color: #ff1493;
+        }
+        .reply-list {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #ffd9d9;
+        }
+        .reply {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .remove-reply {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+        .remove-reply:hover {
+            background-color: #ff1a1a;
+        }
+        .add-note-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .add-note-container input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        .add-note-container button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-note-container button:hover {
+            background-color: #ff1493;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Special Notes</h1>
+    <div id="notes-container"></div>
+    <div class="add-note-container">
+        <input id="new-note-input" type="text" placeholder="Write a new note..." />
+        <button onclick="addNewNote()">Add Note</button>
+    </div>
+
+    <script>
+        const staticNotes = [
+            { text: "Happy Birthday, Pookie! 🎉 You make every day brighter.", replies: [] },
+            { text: "Thank you for being so amazing. Here's to more memories! 💖", replies: [] },
+            { text: "I love watching you dance—it’s magical! 🩰", replies: [] }
+        ];
+
+        const notesContainer = document.getElementById("notes-container");
+
+        const loadNotes = () => {
+            const savedNotes = JSON.parse(localStorage.getItem("notesWithReplies")) || [];
+            const allNotes = [...staticNotes];
+
+            savedNotes.forEach((note, index) => {
+                if (index < staticNotes.length) {
+                    allNotes[index].replies = note.replies || [];
+                } else {
+                    allNotes.push(note);
+                }
+            });
+
+            return allNotes;
+        };
+
+        let notes = loadNotes();
+
+        const saveNotes = () => {
+            const dynamicNotes = notes.map(note => ({
+                text: note.text,
+                replies: note.replies
+            }));
+            localStorage.setItem("notesWithReplies", JSON.stringify(dynamicNotes));
+        };
+
+        const renderNotes = () => {
+            notesContainer.innerHTML = "";
+            notes.forEach((note, index) => {
+                const noteCard = document.createElement("div");
+                noteCard.className = "note-card";
+
+                noteCard.innerHTML = `
+                    <p class="note-text">${note.text}</p>
+                    ${
+                        index >= staticNotes.length
+                            ? `<button onclick="editNote(${index})">Edit</button>
+                               <button onclick="deleteNote(${index})">Delete</button>`
+                            : ""
+                    }
+                    <div class="reply-box">
+                        <textarea id="reply-${index}" placeholder="Write a reply..."></textarea>
+                        <button onclick="addReply(${index})">Reply</button>
+                    </div>
+                    <div id="replies-${index}" class="reply-list">
+                        ${note.replies.map((reply, replyIndex) => `
+                            <div class="reply">
+                                ${reply}
+                                <button class="remove-reply" onclick="removeReply(${index}, ${replyIndex})">Remove</button>
+                            </div>
+                        `).join("")}
+                    </div>
+                `;
+                notesContainer.appendChild(noteCard);
+            });
+        };
+
+        const addReply = (index) => {
+            const replyInput = document.getElementById(`reply-${index}`);
+            const replyText = replyInput.value.trim();
+
+            if (replyText) {
+                notes[index].replies.push(replyText);
+                saveNotes();
+                renderNotes();
+            }
+            replyInput.value = "";
+        };
+
+        const removeReply = (noteIndex, replyIndex) => {
+            notes[noteIndex].replies.splice(replyIndex, 1);
+            saveNotes();
+            renderNotes();
+        };
+
+        const addNewNote = () => {
+            const newNoteInput = document.getElementById("new-note-input");
+            const newNoteText = newNoteInput.value.trim();
+
+            if (newNoteText) {
+                notes.push({ text: newNoteText, replies: [] });
+                saveNotes();
+                renderNotes();
+            }
+            newNoteInput.value = "";
+        };
+
+        const editNote = (index) => {
+            const newText = prompt("Edit your note:", notes[index].text);
+            if (newText) {
+                notes[index].text = newText.trim();
+                saveNotes();
+                renderNotes();
+            }
+        };
+
+        const deleteNote = (index) => {
+            if (confirm("Are you sure you want to delete this note?")) {
+                notes.splice(index, 1);
+                saveNotes();
+                renderNotes();
+            }
+        };
+
+        renderNotes();
+    </script>
+
+    <a href="main.html" class="back-button">Back to Main Page</a>
+
+</body>
+</html>
+

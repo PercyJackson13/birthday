@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <script>
+        // Redirect to login page if not logged in
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            alert("You must log in first!");
+            window.location.href = "index.html";
+        }
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dance Videos</title>
+    <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body>
+    <header>
+        <h1>Dance Videos</h1>
+        <p>Hope you have fun watching all these videos! Love you!!</p>
+    </header>
+
+    <main>
+        <section class="video-gallery">
+            <div class="video-card">
+                <video src="videos/video1.mp4" poster="thumbnails/thumb1.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video2.mp4" poster="thumbnails/thumb2.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video3.mp4" poster="thumbnails/thumb3.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video4.mp4" poster="thumbnails/thumb4.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video5.mp4" poster="thumbnails/thumb5.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video6.mp4" poster="thumbnails/thumb6.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video7.mp4" poster="thumbnails/thumb7.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video8.mp4" poster="thumbnails/thumb8.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video9.mp4" poster="thumbnails/thumb9.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video10.mp4" poster="thumbnails/thumb10.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video11.mp4" poster="thumbnails/thumb11.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+            <div class="video-card">
+                <video src="videos/video12.mp4" poster="thumbnails/thumb12.jpg" controls></video>
+                <button class="like-btn">♥ Like</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <button onclick="window.location.href='main.html'" class="back-button">Back to Main Page</button>
+        <p class="sweet-message">"You make life a dance worth enjoying, Every step we’ve shared is a memory engraved in my heart."</p>
+    </footer>
+    <script src="scripts/script.js"></script>
+
+</body>
+</html>

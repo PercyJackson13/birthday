@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sachin's Birthday Surprise</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@300;400;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            background: #121212;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(36, 36, 36, 0.8), rgba(18, 18, 18, 0.8)), url('https://png.pngtree.com/thumb_back/fw800/background/20231023/pngtree-happy-birthday-image_13943671.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 20px;
+            animation: fadeInDown 2s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            background: linear-gradient(135deg, #ff6b6b, #ffa26b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            color: #d6d6d6;
+        }
+
+        .hero button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .hero button:hover {
+            background: #ffa26b;
+            transform: scale(1.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #1e1e1e;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        nav a {
+            color: #ff6b6b;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffa26b;
+            transform: scale(1.1);
+        }
+
+        section {
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 1000px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            position: relative;
+            background: linear-gradient(135deg, #1e1e1e, #2b2b2b);
+            color: white;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff6b6b, #ffa26b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        section p {
+            font-size: 1.2rem;
+            color: #cfcfcf;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e1e1e;
+            color: white;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .special-notes {
+            background: linear-gradient(135deg, #2c2c2c, #3d3d3d);
+        }
+
+        .class-memories {
+            background: linear-gradient(135deg, #333333, #454545);
+        }
+
+        .dance-videos {
+            background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animated hearts */
+        .heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ffa26b);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: float 5s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100%) scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10%) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="styles/styles.css">
+    <style>
+        .fancy-button {
+    display: inline-block;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(255, 94, 121, 0.4);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.fancy-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 300%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+    transition: all 0.5s ease;
+}
+
+.fancy-button:hover::before {
+    left: 100%;
+}
+
+.fancy-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(255, 94, 121, 0.6);
+    background: linear-gradient(135deg, #ff758c, #dd6899);
+}
+
+.fancy-button:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 12px rgba(255, 94, 121, 0.6);
+}
+    </style>
+    <style>
+        .logout-button {
+            background: linear-gradient(135deg, #ff6b6b, #ff9a9e);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+    
+        .logout-button:hover {
+            background: linear-gradient(135deg, #ff5252, #ff6b6b);
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+    
+        .logout-button:active {
+            transform: scale(0.95);
+        }
+    </style>
+    
+    
+
+</head>
+
+
+<body>
+
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Happy Birthday, Sachin!</h1>
+            <p>And also a very Merry Christmas. Scroll down to explore!</p>
+            <button onclick="document.querySelector('nav').scrollIntoView({behavior: 'smooth'})">Get Started</button>
+        </div>
+    </div>
+
+    <div class="heart-container">
+        <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="heart" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="heart" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="heart" style="left: 50%; animation-delay: 0.5s;"></div>
+        <div class="heart" style="left: 70%; animation-delay: 1.5s;"></div>
+        <div class="heart" style="left: 80%; animation-delay: 3s;"></div>
+    </div>
+    
+    <div class="heart-container">
+        <!-- Empty container; hearts will be dynamically added via JavaScript -->
+    </div>
+    
+    <nav>
+        <a href="#notes">Notes</a>
+        <a href="#memories">Class Memories</a>
+        <a href="#videos">Dance Videos</a>
+    </nav>
+    
+    <section id="notes" class="special-notes">
+        <h2>Notes just for u</h2>
+        <button class="fancy-button" onclick="window.location.href='special-notes.html'">Here's something i always wanted to say</button>
+    </section>
+    
+    <section id="memories" class="class-memories">
+        <h2>Class Memories</h2>
+        <button class="fancy-button" onclick="window.location.href='class-memories.html'">Relive Class Memories</button>
+    </section>
+    
+    <section id="videos" class="dance-videos">
+        <h2>Dance Videos</h2>
+        <button class="fancy-button" onclick="window.location.href='dance-videos.html'">Watch Dance Videos</button>
+    </section>
+    
+    
+    <footer>
+        <p>With love, always ❤️</p>
+    </footer>
+    <button class="logout-button" onclick="logout()">Logout</button>
+    
+
+    <script>
+        function logout() {
+            localStorage.setItem("isLoggedIn", "false");
+            alert("You have been logged out!");
+            window.location.href = "index.html";
+        }
+    </script>
+    
